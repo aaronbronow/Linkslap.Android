@@ -3,11 +3,11 @@ import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import rx.Observable;
 import Linkslap.Android.Communication.Interfaces.IAccountStore;
 import Linkslap.Android.Communication.Models.Account;
 import Linkslap.Android.Communication.Models.RegisterModel;
 import Linkslap.Android.Communication.Util.Storage;
-
 
 public class AccountStore implements IAccountStore {
 	
@@ -19,7 +19,7 @@ public class AccountStore implements IAccountStore {
 	}
 	
 	@Override
-	public Account Authenticate(String userName, String password) {		
+	public Observable<Account> Authenticate(String userName, String password) {		
 		return accountRestService.Login(userName, password, "password");
 	}
 
@@ -29,12 +29,12 @@ public class AccountStore implements IAccountStore {
 	}
 
 	@Override
-	public void Register(RegisterModel user) {
-		this.accountRestService.Register(user);
+	public Observable<?> Register(RegisterModel user) {
+		return this.accountRestService.Register(user);
 	}
 
 	@Override
-	public Boolean ResetPassword(String email) {
+	public Observable<Boolean> ResetPassword(String email) {
 		return this.accountRestService.ResetPassword(email);
 	}
 
@@ -42,12 +42,12 @@ public class AccountStore implements IAccountStore {
 		
 		@FormUrlEncoded
 		@GET("/token")
-		Account Login(@Field("username")String username, @Field("password")String password, @Field("grant_type")String grantType);
+		Observable<Account> Login(@Field("username")String username, @Field("password")String password, @Field("grant_type")String grantType);
 				
 		@POST("/api/account/register")
-		void Register(@Body RegisterModel model);
+		Observable<?> Register(@Body RegisterModel model);
 		
 		@POST("/api/account/resetpassword")
-		Boolean ResetPassword(@Body String email);
+		Observable<Boolean> ResetPassword(@Body String email);
 	}
 }

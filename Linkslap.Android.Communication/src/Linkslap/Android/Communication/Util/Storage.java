@@ -8,14 +8,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.UUID;
 
-import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public final class Storage {
 	 public static final String PREFS_NAME = "Linkslap.preferences";
-	 
-	 public static Context Context;
 	 
 	 public static String GetInstallationId() {
 		 String installationId = Load("InstallationId");
@@ -30,7 +27,7 @@ public final class Storage {
 	 }
 	 
 	 public static void ClearAll() {
-		 File fileDirectory = Storage.Context.getFilesDir();
+		 File fileDirectory = AppSettings.Context.getFilesDir();
 		 File[] files = fileDirectory.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String filename) {			
@@ -58,7 +55,7 @@ public final class Storage {
 			 return true;
 		 }
 		 
-		 File file = Storage.Context.getFileStreamPath(key);
+		 File file = AppSettings.Context.getFileStreamPath(key);
 		 file.delete();
 		 
 		 return true;
@@ -68,7 +65,7 @@ public final class Storage {
 		 try {
 			final Gson gson = new Gson();
 			String output = gson.toJson(value, new TypeToken<T>(){}.getClass());
-			FileOutputStream fileOutputStream = Storage.Context.openFileOutput(key + ".setting", android.content.Context.MODE_PRIVATE);
+			FileOutputStream fileOutputStream = AppSettings.Context.openFileOutput(key + ".setting", android.content.Context.MODE_PRIVATE);
 			fileOutputStream.write(output.getBytes());
 			fileOutputStream.flush();
 			fileOutputStream.close();
@@ -89,7 +86,7 @@ public final class Storage {
 		 }
         
         try{
-        	inputStream = Storage.Context.openFileInput(key);
+        	inputStream = AppSettings.Context.openFileInput(key);
         } catch(final Exception e){
         	return null;
         }
@@ -106,7 +103,7 @@ public final class Storage {
     }
 	 
 	 private static boolean fileExistance(String fname){
-	    File file = Storage.Context.getFileStreamPath(fname);
+	    File file = AppSettings.Context.getFileStreamPath(fname);
 	    return file.exists();
 	}
 }

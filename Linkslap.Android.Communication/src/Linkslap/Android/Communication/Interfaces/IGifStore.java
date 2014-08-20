@@ -1,8 +1,9 @@
 package Linkslap.Android.Communication.Interfaces;
 
+import rx.Observable;
 import Linkslap.Android.Communication.Models.GifMeModel;
 
 public interface IGifStore {
-	GifMeModel Search(String query, Boolean nsfw);
-	GifMeModel Search(String query, Boolean nsfw, Integer page);
+	Observable<GifMeModel> Search(String query, Boolean nsfw);
+	Observable<GifMeModel> Search(String query, Boolean nsfw, Integer page);
 }
