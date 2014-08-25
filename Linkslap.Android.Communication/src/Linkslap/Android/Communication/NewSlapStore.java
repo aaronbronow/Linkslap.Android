@@ -1,3 +1,4 @@
+package Linkslap.Android.Communication;
 import java.util.ArrayList;
 
 import Linkslap.Android.Communication.Interfaces.INewSlapStore;

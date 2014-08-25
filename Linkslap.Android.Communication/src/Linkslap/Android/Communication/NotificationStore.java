@@ -1,3 +1,4 @@
+package Linkslap.Android.Communication;
 import java.io.IOException;
 
 import android.content.Context;

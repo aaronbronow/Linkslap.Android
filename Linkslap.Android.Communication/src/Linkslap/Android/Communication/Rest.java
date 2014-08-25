@@ -1,3 +1,4 @@
+package Linkslap.Android.Communication;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import Linkslap.Android.Communication.Models.Account;

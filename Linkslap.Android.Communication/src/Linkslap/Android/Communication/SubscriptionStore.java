@@ -1,3 +1,4 @@
+package Linkslap.Android.Communication;
 import rx.Observable;
 import Linkslap.Android.Communication.Interfaces.ISubscriptionStore;
 import Linkslap.Android.Communication.Models.Subscription;

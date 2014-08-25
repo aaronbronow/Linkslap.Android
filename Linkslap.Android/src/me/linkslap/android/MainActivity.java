@@ -2,6 +2,12 @@ package me.linkslap.android;
 
 import java.util.Locale;
 
+import com.google.android.gms.plus.Account;
+
+import rx.Observable;
+
+import Linkslap.Android.Communication.AccountStore;
+import Linkslap.Android.Communication.Util.AppSettings;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -17,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 
 public class MainActivity extends ActionBarActivity {
 
@@ -51,7 +56,13 @@ public class MainActivity extends ActionBarActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        AppSettings.Context = this;
+        AccountStore accountStore = new AccountStore();
+        Linkslap.Android.Communication.Models.Account account = accountStore.Authenticate("admin", "password");
+    	Integer integer = 0;
     }
+    
+    
 
 
     @Override
@@ -144,6 +155,8 @@ public class MainActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
+        
+        public 
     }
 
 }

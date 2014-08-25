@@ -1,3 +1,5 @@
+package Linkslap.Android.Communication;
+
 import Linkslap.Android.Communication.Interfaces.IGifStore;
 import Linkslap.Android.Communication.Models.GifMeModel;
 import retrofit.http.GET;

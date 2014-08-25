@@ -1,3 +1,5 @@
+package Linkslap.Android.Communication;
+import rx.Observable;
 import Linkslap.Android.Communication.Interfaces.ISettingsStore;
 import Linkslap.Android.Communication.Interfaces.ISubscriptionStore;
 
@@ -19,7 +21,7 @@ public class SettingsStore implements ISettingsStore {
 	{
 		this.subscriptionStore = subscriptionStore;
 		
-		Observable<Subscription> allSubscriptions = this.subscriptionStore.GetSubscriptions();
+		// Observable<Subscription> allSubscriptions = this.subscriptionStore.GetSubscriptions();
 		
 	}
 	

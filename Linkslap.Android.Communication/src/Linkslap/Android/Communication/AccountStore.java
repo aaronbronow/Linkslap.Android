@@ -1,8 +1,14 @@
+package Linkslap.Android.Communication;
+
+import java.util.ArrayList;
+
+import retrofit.RestAdapter;
 import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Path;
 import rx.Observable;
 import Linkslap.Android.Communication.Interfaces.IAccountStore;
 import Linkslap.Android.Communication.Models.Account;
@@ -19,7 +25,14 @@ public class AccountStore implements IAccountStore {
 	}
 	
 	@Override
-	public Observable<Account> Authenticate(String userName, String password) {		
+	public Account Authenticate(String userName, String password) {		
+		RestAdapter restAdapter = new RestAdapter.Builder()
+	    .setEndpoint("https://api.github.com")
+	    .build();
+
+		GitHubService s = restAdapter.create(GitHubService.class);
+		ArrayList<Object> r = s.listRepos("octocat");
+		
 		return accountRestService.Login(userName, password, "password");
 	}
 
@@ -38,16 +51,21 @@ public class AccountStore implements IAccountStore {
 		return this.accountRestService.ResetPassword(email);
 	}
 
-	private interface AccountRestService {
+	public interface AccountRestService {
 		
 		@FormUrlEncoded
-		@GET("/token")
-		Observable<Account> Login(@Field("username")String username, @Field("password")String password, @Field("grant_type")String grantType);
+		@POST("/token")
+		Account Login(@Field("username")String username, @Field("password")String password, @Field("grant_type")String grantType);
 				
 		@POST("/api/account/register")
 		Observable<?> Register(@Body RegisterModel model);
 		
 		@POST("/api/account/resetpassword")
 		Observable<Boolean> ResetPassword(@Body String email);
+	}
+	
+	public interface GitHubService {
+	  @GET("/users/{user}/repos")
+	  ArrayList<Object> listRepos(@Path("user") String user);
 	}
 }
